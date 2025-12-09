@@ -71,6 +71,7 @@ def scarpe_books(url):
     return all_books
 
 
+
 def json_file(all_books):
     with open("books.json","w",encoding="utf-8") as f:
         json.dump(all_books, f, indent=4, ensure_ascii=False)
@@ -82,8 +83,21 @@ def csv_file(all_books):
         writer.writeheader()
         writer.writerows(all_books) 
 
+def separation(all_books):
+    with open("discounted.csv", "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=all_books[0].keys())
+        writer.writeheader()  # write only the column name once
+
+        for i in all_books:
+            if i["price"] < 40:
+                writer.writerow(i)
+
+            
+
+
+        
 def main():
-    # create_table()
+    create_table()
     books = scarpe_books(url)
     for b in books:
         insert_items(b['title'], b['currency'], b['price'])
@@ -91,5 +105,6 @@ def main():
     json_file(books)
     csv_file(books)
     read_items()
+    separation(books)
 
 main()
