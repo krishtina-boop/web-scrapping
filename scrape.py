@@ -86,7 +86,7 @@ def csv_file(all_books):
 def separation(all_books):
     with open("discounted.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=all_books[0].keys())
-        writer.writeheader()  # write only the column name once
+        writer.writeheader() 
 
         for i in all_books:
             if i["price"] < 40:
